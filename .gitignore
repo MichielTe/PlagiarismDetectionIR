@@ -26,6 +26,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+*.xml
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -119,7 +120,7 @@ venv.bak/
 
 # mkdocs documentation
 /site
-
+/.idea
 # mypy
 .mypy_cache/
 .dmypy.json
