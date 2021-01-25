@@ -14,6 +14,7 @@ def main():
     for datapoint in data:
         val=data[datapoint]
         index=math.floor(val*10)
+        if index>=10:index=9
         counted_vals[index]+=1
 
     fig, ax = plt.subplots()
