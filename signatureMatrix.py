@@ -30,3 +30,5 @@ def createSignatureMatrix(data, hashes):
 data = getData()
 hashFunctions = generateHashFunctions(100)
 test = createSignatureMatrix(data, hashFunctions)
+with open('obj/used_hashes.pkl', 'wb') as file:
+    pickle.dump(hashFunctions, file)
