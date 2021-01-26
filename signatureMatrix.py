@@ -8,19 +8,25 @@ def getData():
     return data
 
 
-def createSignatureMatrix(data, nb_hashes):
+def createSignature(data_row, hashes):
+    nb_hashes = len(hashes)
+    signature_row = [math.inf] * nb_hashes
+    for shingle in data_row:
+        for hash_i in range(nb_hashes):
+            rotations, XORvalue = hashes[hash_i]
+            signature_row[hash_i] = min(signature_row[hash_i], LSH_hash(shingle, rotations, XORvalue))
+    return signature_row
+
+
+def createSignatureMatrix(data, hashes):
     signature_matrix = []
-    hashes = generateHashFunctions(nb_hashes)
+    nb_hashes = len(hashes)
     for row in data:
-        signature_row = [math.inf]*nb_hashes
-        for shingle in row:
-            for hash_i in range(nb_hashes):
-                rotations, XORvalue = hashes[hash_i]
-                signature_row[hash_i] = min(signature_row[hash_i], LSH_hash(shingle, rotations, XORvalue))
-        signature_matrix.append(signature_row)
+        signature_matrix.append(createSignature(row, hashes))
     with open('obj/signature_matrix.pkl', 'wb') as file:
         pickle.dump(signature_matrix, file)
-    return signature_matrix
+    return signature_matrix, hashes
 
 data = getData()
-test = createSignatureMatrix(data, 100)
+hashFunctions = generateHashFunctions(100)
+test = createSignatureMatrix(data, hashFunctions)
