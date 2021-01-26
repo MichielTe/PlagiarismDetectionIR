@@ -1,8 +1,8 @@
 import pickle
-
+import csv
 
 def getShingles():
-    with open('obj/signature_matrix.pkl', 'rb') as file:
+    with open('obj/shingles.pkl', 'rb') as file:
         data = pickle.load(file)
     return data
 
@@ -45,6 +45,15 @@ def main():
         pairwise_similarity_map[pair] = jaccard_sim
     with open('obj/candidate_pair_jacard.pkl', 'wb') as file:
         pickle.dump(pairwise_similarity_map, file)
+
+    with open('result.csv', 'w', newline='') as csvfile:
+        fieldnames = ['doc_id1', 'doc_id2']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for pair in pairwise_similarity_map:
+            if(pairwise_similarity_map[pair]>0.8):
+                writer.writerow({"doc_id1":pair[0],"doc_id2":pair[1]})
+
 
 
 if __name__=="__main__":
