@@ -31,10 +31,12 @@ def create_shingles(data, k):
         new_shingle_data.append(dataSet)
     return new_shingle_data, shingle_dict
 
-data = getData()
-new_shingle_data, shingles_dict = create_shingles(data, 2)
-with open('obj/shingles.pkl', 'wb') as file:
-    pickle.dump(new_shingle_data, file)
 
-with open('obj/shingles_dict.pkl', 'wb') as file:
-    pickle.dump(shingles_dict, file)
+if __name__ == "__main__":
+    data = getData()
+    new_shingle_data, shingles_dict = create_shingles(data, 2)
+    with open('obj/shingles.pkl', 'wb') as file:
+        pickle.dump(new_shingle_data, file)
+
+    with open('obj/shingles_dict.pkl', 'wb') as file:
+        pickle.dump(shingles_dict, file)

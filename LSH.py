@@ -33,10 +33,11 @@ def LSHCreateBuckets(signature_matrix, nb_bands):
     return bucket_list
 
 
-with open('obj/signature_matrix.pkl', 'rb') as file:
-    data = pickle.load(file)
+if __name__ == "__main__":
+    with open('obj/signature_matrix.pkl', 'rb') as file:
+        data = pickle.load(file)
 
-buckets = LSHCreateBuckets(data, 20)
-with open('obj/buckets.pkl', 'wb') as file:
-    pickle.dump(buckets, file)
-print(buckets)
+    buckets = LSHCreateBuckets(data, 20)
+    with open('obj/buckets.pkl', 'wb') as file:
+        pickle.dump(buckets, file)
+    print(buckets)
