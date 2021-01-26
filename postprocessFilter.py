@@ -2,7 +2,7 @@ import pickle
 
 
 def getShingles():
-    with open('obj/shingles.pkl', 'rb') as file:
+    with open('obj/signature_matrix.pkl', 'rb') as file:
         data = pickle.load(file)
     return data
 
@@ -32,9 +32,16 @@ def main():
     for pair in pairs:
         doc1=shingles[pair[0]]
         doc2 = shingles[pair[1]]
+        # For actual jaccard similarity
         union=doc1.union(doc2)
         intersect = doc1.intersection(doc2)
         jaccard_sim = len(intersect) / len(union)
+        # For approximated jaccard
+        # simcounter = 0
+        # for i in range(len(doc1)):
+        #     if doc1[i] == doc2[i]:
+        #         simcounter += 1
+        # jaccard_sim = simcounter / len(doc1)
         pairwise_similarity_map[pair] = jaccard_sim
     with open('obj/candidate_pair_jacard.pkl', 'wb') as file:
         pickle.dump(pairwise_similarity_map, file)
