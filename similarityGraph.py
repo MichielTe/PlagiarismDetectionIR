@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import math
 
 def getData():
-    with open('obj/similarityApprox.pkl', 'rb') as file:
+    with open('obj/candidate_pair_jacard.pkl', 'rb') as file:
         data = pickle.load(file)
     return data
 
