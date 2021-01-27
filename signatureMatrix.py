@@ -13,8 +13,8 @@ def createSignature(data_row, hashes):
     signature_row = [math.inf] * nb_hashes
     for shingle in data_row:
         for hash_i in range(nb_hashes):
-            rotations, XORvalue = hashes[hash_i]
-            signature_row[hash_i] = min(signature_row[hash_i], LSH_hash(shingle, rotations, XORvalue))
+            XORvalue = hashes[hash_i]
+            signature_row[hash_i] = min(signature_row[hash_i], LSH_hash(shingle, XORvalue))
     return signature_row
 
 
