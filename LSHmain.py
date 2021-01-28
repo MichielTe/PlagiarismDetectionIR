@@ -2,12 +2,16 @@ import shingles
 import pickle
 from signatureMatrix import createSignatureMatrix
 from hashFunctions import generateHashFunctions
+from preprocessing import getData
 from LSH import LSHCreateBuckets
 
 if __name__ == "__main__":
     save_files = True
     signature_size = 756
     number_of_bands = 63
+
+    # Preprocess the data
+    getData('data/news_articles_small.csv')
 
     # Opens the documents gotten after the preprocess step at "preprocessing.py"
     with open('obj/documents.pkl', 'rb') as file:

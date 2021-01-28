@@ -5,12 +5,15 @@ import re
 # Regex expression to remove all non alphabet/numbers characters
 removeNonAlphabet=re.compile('[\W_]+', re.UNICODE)
 
-def getData():
+def getData(file):
     data = list()
-    with open('data/news_articles_small.csv', newline='\n', encoding="utf8") as csvfile:
+    with open(file, newline='\n', encoding="utf8") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             data.append(sanitiseData(row["article"]))
+    # save pre-processed documents to file for usages in the shingling file
+    with open('obj/documents.pkl', 'wb') as file:
+        pickle.dump(data, file)
     return data
 
 def sanitiseData(data):
@@ -28,11 +31,7 @@ def sanitiseData(data):
 
 
 def main():
-    data = getData()
-    # save pre-processed documents to file for usages in the shingling file
-    with open('obj/documents.pkl', 'wb') as file:
-        pickle.dump(data, file)
-
+    data = getData("data/news_articles_small.csv")
 
 if __name__ == "__main__":
     main()

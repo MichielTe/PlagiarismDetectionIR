@@ -1,6 +1,5 @@
 import pickle
 
-
 def LSH(signature_row, nb_bands):
     """
     Applies the LSH algorithm for a single documents/signature
