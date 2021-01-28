@@ -1,30 +1,35 @@
-import sys
 import random
 import hashlib
 
-# MAX_INT = sys.maxsize
-# INT_BITS = sys.getsizeof(MAX_INT)
-# BYTES_SLICED = int((INT_BITS) / 8)
 INT_SIZE = 32
 INT_SIZE_BYTES = 4
-# INT_MAX_VAL=math.pow(2,INT_SIZE)
+
 
 def generateHashFunctions(n):
+    """
+    Generates n amount of random hashfunctions, these will be a bunch of random xor values
+    :param n: amount of hash functions to create
+    :return: a list of n xor values in a tuple object
+    the reason for this tuple object is so we can if need be, expand our hash function with other variables
+    """
     hashFunction = []
     for i in range(n):
-        #random_XORvalue = random.randint(-sys.maxsize, sys.maxsize)
+        # Chooses random value to use as xor during a single hash function
         random_XORvalue = random.getrandbits(INT_SIZE)
-        # random_rotations = random.randint(0, INT_SIZE-1)
         hashFunction.append((random_XORvalue))
     return hashFunction
 
 
 def LSH_hash(value, XORvalue):
+    """
+    Performs a hash for the LSH algorithm
+    :param value: the value of the shingle
+    :param XORvalue: the xorvalue unique to this hash value
+    :return: the hashed value of "value"
+    """
+    # Sha1 has is more computational expensive than md5 while for our purpose the specific hash doesnt matter
     #new_value = hashlib.sha1(value.to_bytes(INT_SIZE, 'big')).digest()[0: INT_SIZE_BYTES]
     new_value = hashlib.md5(value.to_bytes(INT_SIZE, 'big')).digest()[0: INT_SIZE_BYTES]
     new_int_value = int.from_bytes(new_value, 'big')
-    # return new_int_value ^ XORvalue
     return new_int_value ^ XORvalue
 
-# if __name__ == "__main__":
-#     leftRotate(99654,8)

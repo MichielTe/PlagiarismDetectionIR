@@ -12,6 +12,11 @@ def getBuckets():
     return data
 
 def create_candidate_pairs():
+    """
+    This function goes over all buckets and creates unique candidate pairs for each bucket with more than 2 entries
+    Here we make sure that we also don't get both (A,B) and (B,A) as candidate pair, hence the nestedness
+    :return: A list of candidate pairs
+    """
     buckets = getBuckets()
     candidate_pairs = set()
     for band in buckets:
@@ -26,6 +31,12 @@ def create_candidate_pairs():
     return candidate_pairs
 
 def main():
+    """
+    This main function will go over the filled buckets, and will first create the candidate pairs
+    Then it will calculate the actual jaccard similarity per document and check whether all pairs have the needed similarity
+    This is to remove false positives, which actually don't occur in both datasets for this project, as the signature sizes and band were chose accordingly
+    :return:
+    """
     pairs=create_candidate_pairs()
     print("total number of candidate pairs: ", len(pairs))
     shingles=getShingles()
@@ -36,16 +47,11 @@ def main():
     for pair in pairs:
         doc1=shingles[pair[0]]
         doc2 = shingles[pair[1]]
-        # For actual jaccard similarity
+        # calculate jaccard similarity
         union=doc1.union(doc2)
         intersect = doc1.intersection(doc2)
         jaccard_sim = len(intersect) / len(union)
-        # For approximated jaccard
-        # simcounter = 0
-        # for i in range(len(doc1)):
-        #     if doc1[i] == doc2[i]:
-        #         simcounter += 1
-        # jaccard_sim = simcounter / len(doc1)
+        # Simple diagnostic counter
         if jaccard_sim >= threshold:
             true_positives += 1
         else:
@@ -53,9 +59,12 @@ def main():
         pairwise_similarity_map[pair] = jaccard_sim
     print("total number true positives: ", true_positives)
     print("total number false positives: ", false_positives)
+
+    # Dump similarities to separate file for graphing
     with open('obj/candidate_pair_jacard.pkl', 'wb') as file:
         pickle.dump(pairwise_similarity_map, file)
 
+    # Dump candidate pairs to csv file
     with open('result.csv', 'w', newline='') as csvfile:
         fieldnames = ['doc_id1', 'doc_id2']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
