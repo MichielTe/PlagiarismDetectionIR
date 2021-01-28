@@ -5,13 +5,13 @@ from hashFunctions import generateHashFunctions
 from LSH import LSHCreateBuckets
 
 if __name__ == "__main__":
-    save_files = False
-    signature_size = 100
-    number_of_bands = 20
+    save_files = True
+    signature_size = 756
+    number_of_bands = 63
 
     with open('obj/documents.pkl', 'rb') as file:
         data = pickle.load(file)
-    shingle_data, shingle_dict = shingles.create_shingles(data, 2)
+    shingle_data, shingle_dict = shingles.create_shingles(data, 8)
     hashFunctions = generateHashFunctions(signature_size)
     signature_matrix = createSignatureMatrix(shingle_data, hashFunctions)
     mapped_buckets = LSHCreateBuckets(signature_matrix, number_of_bands)

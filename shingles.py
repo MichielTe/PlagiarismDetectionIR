@@ -34,7 +34,7 @@ def create_shingles(data, k):
 
 if __name__ == "__main__":
     data = getData()
-    new_shingle_data, shingles_dict = create_shingles(data, 2)
+    new_shingle_data, shingles_dict = create_shingles(data, 8)
     with open('obj/shingles.pkl', 'wb') as file:
         pickle.dump(new_shingle_data, file)
 

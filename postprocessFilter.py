@@ -27,8 +27,12 @@ def create_candidate_pairs():
 
 def main():
     pairs=create_candidate_pairs()
+    print("total number of candidate pairs: ", len(pairs))
     shingles=getShingles()
     pairwise_similarity_map = dict()
+    false_positives = 0
+    true_positives = 0
+    threshold = 0.8
     for pair in pairs:
         doc1=shingles[pair[0]]
         doc2 = shingles[pair[1]]
@@ -42,7 +46,13 @@ def main():
         #     if doc1[i] == doc2[i]:
         #         simcounter += 1
         # jaccard_sim = simcounter / len(doc1)
+        if jaccard_sim >= threshold:
+            true_positives += 1
+        else:
+            false_positives += 1
         pairwise_similarity_map[pair] = jaccard_sim
+    print("total number true positives: ", true_positives)
+    print("total number false positives: ", false_positives)
     with open('obj/candidate_pair_jacard.pkl', 'wb') as file:
         pickle.dump(pairwise_similarity_map, file)
 
