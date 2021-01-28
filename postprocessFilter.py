@@ -1,5 +1,6 @@
-import pickle
 import csv
+import pickle
+
 
 def getShingles():
     with open('obj/shingles.pkl', 'rb') as file:

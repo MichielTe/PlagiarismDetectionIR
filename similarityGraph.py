@@ -1,6 +1,8 @@
-import pickle
-import matplotlib.pyplot as plt
 import math
+import pickle
+
+import matplotlib.pyplot as plt
+
 
 def getData():
     """

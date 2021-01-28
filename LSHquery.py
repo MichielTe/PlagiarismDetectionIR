@@ -1,8 +1,11 @@
 import pickle
 import random
+
 import matplotlib.pyplot as plt
-from signatureMatrix import createSignature
+
 from LSH import LSH
+from signatureMatrix import createSignature
+
 
 # This file is created to test our implementation
 # It uses the dump files created in shingles.py, SignamtureMAtrix.py andthe LSH.py files

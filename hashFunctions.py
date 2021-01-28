@@ -1,5 +1,5 @@
-import random
 import hashlib
+import random
 
 INT_SIZE = 32
 INT_SIZE_BYTES = 4

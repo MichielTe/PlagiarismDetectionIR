@@ -1,9 +1,10 @@
-import shingles
 import pickle
-from signatureMatrix import createSignatureMatrix
+
+import shingles
+from LSH import LSHCreateBuckets
 from hashFunctions import generateHashFunctions
 from preprocessing import getData
-from LSH import LSHCreateBuckets
+from signatureMatrix import createSignatureMatrix
 
 if __name__ == "__main__":
     save_files = True

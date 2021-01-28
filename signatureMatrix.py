@@ -1,6 +1,8 @@
-import pickle
 import math
+import pickle
+
 from hashFunctions import generateHashFunctions, LSH_hash
+
 
 def getData():
     # Gets the shingles documents from previous step in the process (shingles.py file)
